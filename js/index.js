@@ -19,11 +19,14 @@ async function handleCredentialResponse(response) {
   const picture = data.picture;
 
   try {
-    const r = await axios.post("https://employee-system313.herokuapp.com/auth", {
-      email,
-      name,
-      picture,
-    });
+    const r = await axios.post(
+      "https://employee-system313.herokuapp.com/auth",
+      {
+        email,
+        name,
+        picture,
+      }
+    );
     console.log(r.data);
     const { token } = r.data;
     Cookies.set("token", token);
@@ -55,11 +58,14 @@ async function auth_intialize() {
     // get data from JWT by decoding it
 
     try {
-      const r = await axios.get("https://employee-system313.herokuapp.com/auth/user", {
-        headers: {
-          Authorization: `${auth}`,
-        },
-      });
+      const r = await axios.get(
+        "https://employee-system313.herokuapp.com/auth/user",
+        {
+          headers: {
+            Authorization: `${auth}`,
+          },
+        }
+      );
       console.log(r);
 
       document.querySelector(
@@ -109,7 +115,6 @@ book_slot_btn.addEventListener("click", (e) => {
 async function bookSlot(DATE) {
   //check is user enter previous data
 
-  
   if (!DATE) {
     alert("Please choose a date");
     return;
@@ -154,11 +159,14 @@ async function bookSlot(DATE) {
   // first check is the current employee worked on three days in current week
 
   try {
-    const r = await axios.get(`https://employee-system313.herokuapp.com/slots/${weekOfMonth}`, {
-      headers: {
-        Authorization: `${Cookies.get("token")}`,
-      },
-    });
+    const r = await axios.get(
+      `https://employee-system313.herokuapp.com/slots/${weekOfMonth}`,
+      {
+        headers: {
+          Authorization: `${Cookies.get("token")}`,
+        },
+      }
+    );
     console.log(r.data.length);
     let total_working_day = r.data.length;
     if (total_working_day < 3) {
